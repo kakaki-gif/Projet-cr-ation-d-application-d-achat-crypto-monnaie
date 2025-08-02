@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Faire un don en cryptomonnaies – Kakaki</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Page de dons en crypto pour soutenir Kakaki. Bitcoin, Ethereum, USDT.">
+  <style>
+    :root {
+      --radius: 12px;
+      --shadow: 0 12px 30px -10px rgba(0,0,0,0.15);
+      --blue:#2563eb;
+      --bg:#f5f9ff;
+      --card:#fff;
+      --text:#1f2d3a;
+      --muted:#6f7a89;
+    }
+    *{box-sizing:border-box;}
+    body {
+      margin:0;
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height:1.4;
+      padding:1rem;
+    }
+    .container {
+      max-width: 760px;
+      margin: auto;
+      padding: 0 1rem;
+    }
+    h1 {
+      text-align:center;
+      font-size:1.9rem;
+      margin:0.5rem 0 0.2rem;
+    }
+    p.lead {
+      text-align:center;
+      margin-top:0;
+      color: var(--muted);
+    }
+    .cards {
+      display: grid;
+      gap:1rem;
+      margin-top:1rem;
+    }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding:1rem 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .wallets {
+      display: flex;
+      flex-wrap: wrap;
+      gap:1rem;
+      margin-bottom: 0.5rem;
+    }
+    .wallet {
+      flex:1 1 200px;
+      background:#eef6ff;
+      padding:0.75rem;
+      border-radius:8px;
+      position:relative;
+    }
+    .wallet strong {
+      display:block;
+      margin-bottom:0.4rem;
+    }
+    code {
+      background:#f0f4fa;
+      padding:6px 10px;
+      border-radius:6px;
+      display:block;
+      font-size:0.85rem;
+      overflow-wrap: anywhere;
+    }
+    label {
+      font-weight:600;
+      display:block;
+      margin:0.5rem 0 0.2rem;
+    }
+    input, select {
+      width:100%;
+      padding:0.7rem 10px;
+      font-size:1rem;
+      border:1px solid #d7dce8;
+      border-radius:8px;
+      outline:none;
+    }
+    .flex {display:flex; gap:1rem; flex-wrap:wrap;}
+    .btn {
+      background: var(--blue);
+      color:#fff;
+      border:none;
+      padding:0.75rem 1rem;
+      font-size:1rem;
+      border-radius:8px;
+      cursor:pointer;
+      width:100%;
+    }
+    .small {
+      font-size:0.75rem;
+      color: var(--muted);
+      margin-top:0.25rem;
+    }
+    .widget-wrapper {
+      margin-top:1rem;
+      text-align:center;
+    }
+    .divider {
+      height:1px;
+      background:#e2e8f0;
+      margin:1.5rem 0;
+    }
+    .fallback {
+      background:#fff9f0;
+      border:1px solid #ffe1b5;
+      padding:0.8rem;
+      border-radius:6px;
+      margin-top:0.5rem;
+      font-size:0.9rem;
+    }
+    @media (min-width: 768px){
+      .cards {grid-template-columns: 1fr 1fr;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Kakaki - Faire un don en crypto</h1>
+    <p class="lead">Soutiens le projet avec Bitcoin, Ethereum ou USDT</p>
+
+    <div class="cards">
+      <!-- Adresses -->
+      <div class="card">
+        <h2>Adresses de réception</h2>
+        <div class="wallets">
+          <div class="wallet">
+            <strong>Bitcoin (BTC)</strong>
+            <code>3KTEUPbjkk3BW9cE7NSooaRL9K2wxV3WK4</code>
+          </div>
+          <div class="wallet">
+            <strong>Ethereum (ETH)</strong>
+            <code>0x6e2d1a092b8d81a313a2744bab2b0059854163d2</code>
+          </div>
+          <div class="wallet">
+            <strong>USDT (TRC20)</strong>
+            <code>TMbYvAcLqwrsF3U35aUYCYiWcBVMyu3Hot</code>
+          </div>
+        </div>
+        <p class="small">Tu peux copier l’adresse directement dans ton portefeuille. Vérifie toujours avant d’envoyer ; les transactions sont irréversibles.</p>
+      </div>
+
+      <!-- Don via NowPayments -->
+      <div class="card">
+        <h2>Don automatique</h2>
+        <div class="flex">
+          <div style="flex:1">
+            <label for="amount">Montant (USD)</label>
+            <input type="number" id="amount" placeholder="Ex : 5" min="1" step="0.01" value="5" />
+          </div>
+          <div style="flex:1">
+            <label for="crypto">Crypto</label>
+            <select id="crypto">
+              <option value="btc">Bitcoin (BTC)</option>
+              <option value="eth">Ethereum (ETH)</option>
+              <option value="usdt">USDT (TRC20)</option>
+            </select>
+          </div>
+        </div>
+        <div class="small">
+          Le bouton ci-dessous ouvre NowPayments avec le montant et la crypto choisis. Si le widget ne s'affiche pas, il y a un fallback en-dessous.
+        </div>
+        <div class="widget-wrapper" id="widget-container">
+          <!-- Widget sera injecté ici -->
+        </div>
+
+        <div class="fallback" id="fallback">
+          Si le widget ne s’affiche pas, clique ici :<br/>
+          <a id="fallback-link" href="#" target="_blank" style="color: var(--blue); font-weight:600;">
+            Faire un don (fallback)
+          </a>
+        </div>
+
+        <p class="small">
+          Utilisation personnelle uniquement. La clé NowPayments est exposée dans ce front ; pour plus de sécurité, créer une petite fonction serveur intermédiaire. Les dons sont irréversibles. 
+        </p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p style="text-align:center; font-size:0.85rem;">© Kakaki — Merci pour ton soutien.</p>
+  </div>
+
+  <!-- NowPayments widget script -->
+  <script src="https://widget.nowpayments.io/v1/widget.js"></script>
+  <script>
+    const container = document.getElementById('widget-container');
+    const amountInput = document.getElementById('amount');
+    const cryptoSelect = document.getElementById('crypto');
+    const fallbackLink = document.getElementById('fallback-link');
+
+    function buildWidget() {
+      const amount = parseFloat(amountInput.value);
+      const crypto = cryptoSelect.value.toUpperCase();
+      container.innerHTML = ''; // reset
+
+      if (!amount || amount <= 0) {
+        container.innerHTML = '<p style="color:#c00;">Entre un montant valide.</p>';
+        return;
+      }
+
+      const widget = document.createElement('div');
+      widget.id = 'nowpayments_widget';
+      widget.setAttribute('data-type','donation');
+      widget.setAttribute('data-api-key','qUiIlXDFoLCs7RFzgKrP68Ds9HjJCDpO');
+      widget.setAttribute('data-description','Don crypto pour Kakaki');
+      widget.setAttribute('data-amount', amount.toFixed(2));
+      widget.setAttribute('data-currency','usd');
+      widget.setAttribute('data-pay-currency', crypto);
+      widget.setAttribute('data-button-label','Faire un don');
+      widget.style.display='inline-block';
+
+      container.appendChild(widget);
+
+      // reload script to ensure widget instantiates with new element
+      const existing = document.querySelector('script[src="https://widget.nowpayments.io/v1/widget.js"]');
+      if (existing) {
+        // remove and re-add to force re-init
+        existing.remove();
+        const s = document.createElement('script');
+        s.src = 'https://widget.nowpayments.io/v1/widget.js';
+        document.body.appendChild(s);
+      }
+
+      // Fallback link construction
+      const fallbackUrl = `https://nowpayments.io/donation?api_key=qUiIlXDFoLCs7RFzgKrP68Ds9HjJCDpO&amount=${encodeURIComponent(amount.toFixed(2))}&pay_currency=${encodeURIComponent(crypto.toLowerCase())}&is_fixed_rate=true`;
+      fallbackLink.href = fallbackUrl;
+    }
+
+    amountInput.addEventListener('input', buildWidget);
+    cryptoSelect.addEventListener('change', buildWidget);
+
+    // initial
+    buildWidget();
+  </script>
+</body>
+</html>
